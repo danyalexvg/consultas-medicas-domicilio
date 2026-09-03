@@ -532,8 +532,8 @@
 <script>
   // ---- CONFIGURACIÓN DE SUPABASE ----
   // Reemplaza estos dos valores con los de tu proyecto (Project Settings -> API)
-  const SUPABASE_URL = "TU_SUPABASE_URL_AQUI";
-  const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY_AQUI";
+  const SUPABASE_URL = "https://icswnvpzhpgglpbdsadx.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_cPeaA1TJ_Xq1I00nzJJcDA_qUa5Pll1";
 
   const form = document.getElementById('form-agendar');
   const btn = document.getElementById('btn-enviar');
@@ -554,7 +554,7 @@
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    if (SUPABASE_URL.includes('TU_SUPABASE_URL_AQUI')) {
+    if (SUPABASE_URL.includes('TU_SUPABASE_URL')) {
       mostrarMensaje('El formulario aún no está conectado a la base de datos. Por favor escríbenos directamente por WhatsApp mientras tanto.', 'error');
       return;
     }
