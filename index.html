@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consultas Médicas a Domicilio — Dr. Andrés Felipe Dueñas Niño</title>
+  <meta name="description" content="Medicina general a domicilio en Bogotá con el Dr. Andrés Felipe Dueñas Niño. Agenda tu consulta en línea o por WhatsApp.">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: oklch(0.985 0.004 95);
+      --bg-alt: oklch(0.965 0.014 255);
+      --surface: oklch(0.998 0.002 95);
+      --ink: oklch(0.22 0.03 258);
+      --ink-soft: oklch(0.45 0.035 258);
+      --ink-faint: oklch(0.62 0.03 258);
+      --blue-900: oklch(0.28 0.085 258);
+      --blue-800: oklch(0.34 0.09 258);
+      --blue-700: oklch(0.40 0.095 258);
+      --blue-500: oklch(0.55 0.10 258);
+      --blue-200: oklch(0.90 0.03 258);
+      --blue-100: oklch(0.94 0.018 258);
+      --line: oklch(0.90 0.012 258);
+      --line-soft: oklch(0.94 0.008 258);
+      --white: oklch(0.995 0 0);
+      --error: oklch(0.55 0.18 25);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Manrope", -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+    section[id] { scroll-margin-top: 88px; }
+    h1, h2, h3 { font-family: "Cormorant Garamond", "Times New Roman", serif; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+    p { margin: 0; }
+    a { color: var(--blue-700); text-decoration: none; }
+    a:hover { color: var(--blue-900); }
+    .eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue-700); }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--blue-900); color: var(--white); font-weight: 700; font-size: 15.5px; padding: 15px 28px; border-radius: 999px; border: none; cursor: pointer; font-family: inherit; box-shadow: 0 12px 28px -12px oklch(0.28 0.085 258 / 0.55); transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+    .btn-primary:hover { background: var(--blue-700); color: var(--white); transform: translateY(-2px); box-shadow: 0 16px 32px -12px oklch(0.28 0.085 258 / 0.6); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-ghost { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--blue-900); font-weight: 700; font-size: 15.5px; padding: 15px 26px; border-radius: 999px; border: 1.5px solid var(--line); transition: border-color 0.2s ease, background 0.2s ease; }
+    .btn-ghost:hover { border-color: var(--blue-500); background: var(--blue-100); color: var(--blue-900); }
+    .btn-white { display: inline-flex; align-items: center; gap: 10px; background: var(--white); color: var(--blue-900); font-weight: 700; font-size: 15.5px; padding: 15px 28px; border-radius: 999px; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 12px 26px -10px oklch(0 0 0 / 0.35); }
+    .btn-white:hover { transform: translateY(-2px); }
+    .btn-outline-white { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--white); font-weight: 700; font-size: 15.5px; padding: 15px 26px; border-radius: 999px; border: 1.5px solid oklch(0.995 0 0 / 0.4); transition: background 0.2s ease, border-color 0.2s ease; }
+    .btn-outline-white:hover { background: oklch(0.995 0 0 / 0.12); border-color: oklch(0.995 0 0 / 0.7); }
+    .navlink { font-size: 14.5px; font-weight: 600; color: var(--ink-soft); }
+    .navlink:hover { color: var(--blue-900); }
+    .nav-toggle-input { display: none; }
+    .nav-burger { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; color: var(--blue-900); flex-shrink: 0; }
+    .nav-burger:hover { background: var(--blue-100); }
+    .icon-close { display: none; }
+    .nav-toggle-input:checked ~ .nav-container .icon-menu { display: none; }
+    .nav-toggle-input:checked ~ .nav-container .icon-close { display: block; }
+    .mobile-menu { display: none; flex-direction: column; gap: 2px; padding: 4px 32px 22px; background: var(--surface); border-top: 1px solid var(--line-soft); }
+    .nav-toggle-input:checked ~ .mobile-menu { display: flex; }
+    .mobile-navlink { font-size: 15.5px; font-weight: 600; color: var(--ink-soft); padding: 13px 0; border-bottom: 1px solid var(--line-soft); }
+    .mobile-navlink:hover { color: var(--blue-900); }
+    .card { background: var(--surface); border: 1px solid var(--line-soft); border-radius: 20px; }
+    .icon-badge { width: 52px; height: 52px; border-radius: 14px; background: var(--blue-100); display: flex; align-items: center; justify-content: center; color: var(--blue-800); flex-shrink: 0; }
+    .step-num { font-family: "Cormorant Garamond", serif; font-size: 15px; font-weight: 700; color: var(--blue-200); }
+    @keyframes floatY { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+    @keyframes pulseDot { 0% { box-shadow: 0 0 0 0 oklch(0.55 0.10 258 / 0.5); } 70% { box-shadow: 0 0 0 10px oklch(0.55 0.10 258 / 0); } 100% { box-shadow: 0 0 0 0 oklch(0.55 0.10 258 / 0); } }
+    .float-card { animation: floatY 6s ease-in-out infinite; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue-500); animation: pulseDot 2.2s ease-in-out infinite; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .steps-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; }
+    .hero-split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+    .about-split { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: center; }
+    .coverage-split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field-label { font-size: 13.5px; font-weight: 700; color: var(--ink); margin-bottom: 8px; display: block; }
+    .field-input { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--white); font-family: inherit; font-size: 15px; color: var(--ink); }
+    .field-input:focus { outline: none; border-color: var(--blue-500); }
+    @media (max-width: 980px) {
+      .hero-split, .about-split, .coverage-split { grid-template-columns: 1fr; }
+      .services-grid, .testi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .steps-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .nav-links { display: none !important; }
+      .nav-burger { display: flex !important; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .services-grid, .testi-grid, .steps-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div style="width: 100%; overflow-x: hidden;">
+
+  <!-- NAV -->
+  <header style="position: sticky; top: 0; z-index: 40; background: oklch(0.998 0.002 95 / 0.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-soft);">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+    <div class="nav-container" style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+      <a href="#top" style="display: flex; flex-direction: column; line-height: 1.05;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 23px; color: var(--blue-900);">Consultas Médicas</span>
+        <span style="font-size: 11.5px; font-weight: 600; color: var(--ink-faint); letter-spacing: 0.03em;">Dr. Andrés Felipe Dueñas Niño · Médico General</span>
+      </a>
+      <nav class="nav-links" style="display: flex; align-items: center; gap: 32px;">
+        <a class="navlink" href="#servicios">Servicios</a>
+        <a class="navlink" href="#como-funciona">Cómo funciona</a>
+        <a class="navlink" href="#cobertura">Cobertura</a>
+        <a class="navlink" href="#testimonios">Confianza</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <a class="btn-primary" style="padding: 12px 22px; font-size: 14px;" href="#agendar">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+          Agendar
+        </a>
+        <label for="nav-toggle" class="nav-burger" aria-label="Abrir menú">
+          <svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </label>
+      </div>
+    </div>
+    <nav class="mobile-menu">
+      <a class="mobile-navlink" href="#servicios">Servicios</a>
+      <a class="mobile-navlink" href="#como-funciona">Cómo funciona</a>
+      <a class="mobile-navlink" href="#cobertura">Cobertura</a>
+      <a class="mobile-navlink" href="#testimonios" style="border-bottom: none;">Confianza</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" style="max-width: 1200px; margin: 0 auto; padding: 88px 32px 96px;">
+    <div class="hero-split">
+      <div style="display: flex; flex-direction: column; gap: 26px;">
+        <span class="eyebrow">Medicina general a domicilio · Bogotá</span>
+        <h1 style="font-size: 56px; line-height: 1.08; color: var(--ink);">Atención médica de confianza, en la comodidad de tu hogar.</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: var(--ink-soft); max-width: 520px;">El Dr. Andrés Felipe Dueñas Niño lleva la consulta médica general hasta tu casa: evaluación completa, formulación y seguimiento cercano — sin salas de espera ni desplazamientos.</p>
+        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 6px;">
+          <a class="btn-primary" href="#agendar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+            Agendar consulta
+          </a>
+          <a class="btn-ghost" href="https://wa.me/573227458470?text=Hola%2C%20quisiera%20agendar%20una%20consulta%20m%C3%A9dica%20a%20domicilio" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            322 745 8470
+          </a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 4px;">
+          <span class="dot"></span>
+          <span style="font-size: 13.5px; color: var(--ink-faint); font-weight: 600;">Respuesta habitual en minutos · Bogotá y alrededores</span>
+        </div>
+      </div>
+
+      <div style="position: relative; height: 500px;">
+        <div style="position: absolute; inset: 0; border-radius: 32px; background: linear-gradient(150deg, var(--blue-900) 0%, var(--blue-700) 55%, var(--blue-500) 100%); overflow: hidden;">
+          <div style="position: absolute; width: 340px; height: 340px; border-radius: 50%; background: oklch(0.995 0 0 / 0.08); top: -90px; right: -70px;"></div>
+          <div style="position: absolute; width: 220px; height: 220px; border-radius: 50%; background: oklch(0.995 0 0 / 0.06); bottom: -60px; left: -50px;"></div>
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 132px; height: 132px; border-radius: 50%; background: oklch(0.995 0 0 / 0.12); border: 1px solid oklch(0.995 0 0 / 0.28); display: flex; align-items: center; justify-content: center;">
+              <span style="font-family: 'Cormorant Garamond', serif; font-size: 44px; color: var(--white); font-weight: 600;">AD</span>
+            </div>
+          </div>
+          <div style="position: absolute; bottom: 28px; left: 28px; right: 28px; text-align: center;">
+            <span style="font-size: 13px; color: oklch(0.995 0 0 / 0.85); font-weight: 600; letter-spacing: 0.02em;">Dr. Andrés Felipe Dueñas Niño · Médico General</span>
+          </div>
+        </div>
+
+        <div class="float-card card" style="position: absolute; top: 26px; left: -28px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; box-shadow: 0 20px 40px -18px oklch(0.22 0.03 258 / 0.28); animation-delay: 0.4s;">
+          <div class="icon-badge" style="width: 42px; height: 42px; border-radius: 12px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: var(--ink);">Consulta a domicilio</span>
+            <span style="font-size: 12px; color: var(--ink-faint);">Bogotá D.C.</span>
+          </div>
+        </div>
+
+        <div class="float-card card" style="position: absolute; bottom: 40px; right: -24px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; box-shadow: 0 20px 40px -18px oklch(0.22 0.03 258 / 0.28); animation-delay: 1.2s;">
+          <span class="dot" style="width: 9px; height: 9px;"></span>
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: var(--ink);">Disponibilidad hoy</span>
+            <span style="font-size: 12px; color: var(--ink-faint);">Agenda tu horario</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section style="background: var(--bg-alt); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px;">
+      <div class="about-split">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+          <div style="width: 100%; aspect-ratio: 4/5; border-radius: 24px; background: linear-gradient(160deg, var(--blue-100), var(--white)); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+              <div style="width: 108px; height: 108px; border-radius: 50%; background: var(--blue-900); display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: 'Cormorant Garamond', serif; font-size: 38px; color: var(--white); font-weight: 600;">AD</span>
+              </div>
+              <span style="font-size: 12.5px; color: var(--ink-faint); font-weight: 600;">Espacio para foto del Dr. Dueñas</span>
+            </div>
+          </div>
+          <span style="font-size: 12px; color: var(--ink-faint); font-style: italic;">[Reemplazar por fotografía profesional del médico]</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 22px;">
+          <span class="eyebrow">Sobre el médico</span>
+          <h2 style="font-size: 38px; line-height: 1.15;">Un médico general a tu servicio, en tu hogar</h2>
+          <p style="font-size: 16.5px; line-height: 1.7; color: var(--ink-soft);">El Dr. Andrés Felipe Dueñas Niño es médico general con vocación de servicio y un enfoque cercano y humano en cada consulta. Su prioridad es ofrecer una atención clínica completa y cálida, adaptada al ritmo y las necesidades de cada paciente y su familia, sin necesidad de salir de casa.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 6px; padding-top: 22px; border-top: 1px solid var(--line);">
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="icon-badge" style="width: 38px; height: 38px; border-radius: 10px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+              </div>
+              <p style="font-size: 15px; color: var(--ink); padding-top: 8px;"><strong>Registro médico:</strong> <span style="color: var(--ink-faint);">[N.º de registro médico]</span></p>
+            </div>
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="icon-badge" style="width: 38px; height: 38px; border-radius: 10px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+              </div>
+              <p style="font-size: 15px; color: var(--ink); padding-top: 8px;"><strong>Formación:</strong> <span style="color: var(--ink-soft);">Universidad Nacional de Colombia</span></p>
+            </div>
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              <div class="icon-badge" style="width: 38px; height: 38px; border-radius: 10px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              </div>
+              <p style="font-size: 15px; color: var(--ink); padding-top: 8px;"><strong>Experiencia:</strong> <span style="color: var(--ink-soft);">1 año en medicina general y atención domiciliaria</span></p>
+            </div>
+          </div>
+          <p style="font-size: 12.5px; color: var(--ink-faint); font-style: italic; margin-top: 4px;">Número de registro médico pendiente de confirmar — se puede editar directamente en este bloque.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="servicios" style="max-width: 1200px; margin: 0 auto; padding: 100px 32px;">
+    <div style="max-width: 620px; margin: 0 auto 56px; text-align: center; display: flex; flex-direction: column; gap: 18px; align-items: center;">
+      <span class="eyebrow">Servicios</span>
+      <h2 style="font-size: 38px; line-height: 1.15;">Medicina general a domicilio, con atención completa</h2>
+      <p style="font-size: 16.5px; line-height: 1.6; color: var(--ink-soft);">Una atención integral, pensada para tu comodidad y la de tu familia.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="card" style="padding: 32px 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg></div>
+        <h3 style="font-size: 20px; font-weight: 700; font-family: 'Manrope', sans-serif; color: var(--ink);">Consulta médica general</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink-soft);">Evaluación clínica completa en tu hogar, con el mismo rigor de un consultorio.</p>
+      </div>
+      <div class="card" style="padding: 32px 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/><path d="M7 12h2.5l1.5-3 2 6 1.5-3H17"/></svg></div>
+        <h3 style="font-size: 20px; font-weight: 700; font-family: 'Manrope', sans-serif; color: var(--ink);">Control de enfermedades crónicas</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink-soft);">Seguimiento de hipertensión, diabetes y otras condiciones, sin salir de casa.</p>
+      </div>
+      <div class="card" style="padding: 32px 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2 8 4-16 2 8h6"/></svg></div>
+        <h3 style="font-size: 20px; font-weight: 700; font-family: 'Manrope', sans-serif; color: var(--ink);">Toma de signos vitales</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink-soft);">Presión arterial, frecuencia cardiaca, temperatura y saturación de oxígeno.</p>
+      </div>
+      <div class="card" style="padding: 32px 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></div>
+        <h3 style="font-size: 20px; font-weight: 700; font-family: 'Manrope', sans-serif; color: var(--ink);">Certificados médicos</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink-soft);">Certificados de incapacidad, aptitud y otros documentos según cada caso.</p>
+      </div>
+      <div class="card" style="padding: 32px 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="3.5" transform="rotate(-45 6.5 12)"/><path d="M9 9l6 6"/></svg></div>
+        <h3 style="font-size: 20px; font-weight: 700; font-family: 'Manrope', sans-serif; color: var(--ink);">Formulación médica</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink-soft);">Prescripción y ajuste de tratamientos, con seguimiento cercano.</p>
+      </div>
+      <div class="card" style="padding: 32px 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div class="icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 5-5 2 2-5 5-2z"/></svg></div>
+        <h3 style="font-size: 20px; font-weight: 700; font-family: 'Manrope', sans-serif; color: var(--ink);">Orientación y remisión</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: var(--ink-soft);">Orientación clara y remisión oportuna a especialistas cuando se requiera.</p>
+      </div>
+    </div>
+    <p style="font-size: 12.5px; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 32px;">Servicios sujetos a evaluación médica previa. Este listado puede ajustarse según los servicios reales que ofrezcas.</p>
+  </section>
+
+  <!-- AGENDAR (formulario conectado a Supabase) -->
+  <section id="agendar" style="background: var(--bg-alt); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);">
+    <div style="max-width: 760px; margin: 0 auto; padding: 100px 32px;">
+      <div style="text-align: center; display: flex; flex-direction: column; gap: 18px; align-items: center; margin-bottom: 48px;">
+        <span class="eyebrow">Agenda en línea</span>
+        <h2 style="font-size: 38px; line-height: 1.15;">Solicita tu consulta a domicilio</h2>
+        <p style="font-size: 16.5px; line-height: 1.6; color: var(--ink-soft); max-width: 480px;">Completa el formulario y te confirmamos la disponibilidad por WhatsApp lo antes posible.</p>
+      </div>
+
+      <form id="form-agendar" class="card" style="padding: 40px; display: flex; flex-direction: column; gap: 20px;">
+        <div class="form-grid">
+          <div>
+            <label class="field-label" for="f-nombre">Nombre completo</label>
+            <input class="field-input" type="text" id="f-nombre" name="nombre" required>
+          </div>
+          <div>
+            <label class="field-label" for="f-telefono">WhatsApp / teléfono</label>
+            <input class="field-input" type="tel" id="f-telefono" name="telefono" placeholder="300 000 0000" required>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="f-direccion">Dirección o barrio (Bogotá)</label>
+          <input class="field-input" type="text" id="f-direccion" name="direccion" required>
+        </div>
+        <div>
+          <label class="field-label" for="f-motivo">Motivo de la consulta</label>
+          <textarea class="field-input" id="f-motivo" name="motivo" rows="3" required></textarea>
+        </div>
+        <div class="form-grid">
+          <div>
+            <label class="field-label" for="f-fecha">Fecha preferida</label>
+            <input class="field-input" type="date" id="f-fecha" name="fecha" required>
+          </div>
+          <div>
+            <label class="field-label" for="f-franja">Franja horaria</label>
+            <select class="field-input" id="f-franja" name="franja" required>
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="Mañana (7:00 a.m. - 10:00 a.m.)">Mañana (7:00 a.m. – 10:00 a.m.)</option>
+              <option value="Media mañana (10:00 a.m. - 12:00 p.m.)">Media mañana (10:00 a.m. – 12:00 p.m.)</option>
+              <option value="Antes de las 2:00 p.m.">Antes de las 2:00 p.m.</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-primary" type="submit" id="btn-enviar" style="justify-content: center; margin-top: 8px;">
+          Enviar solicitud
+        </button>
+
+        <div id="form-mensaje" style="display: none; padding: 16px 18px; border-radius: 12px; font-size: 14.5px; line-height: 1.6;"></div>
+
+        <p style="font-size: 12.5px; color: var(--ink-faint); text-align: center;">También puedes escribir directo por <a href="https://wa.me/573227458470" target="_blank" rel="noopener">WhatsApp al 322 745 8470</a>.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="como-funciona" style="background: linear-gradient(180deg, var(--blue-900), var(--blue-800));">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 100px 32px;">
+      <div style="max-width: 620px; margin: 0 auto 64px; text-align: center; display: flex; flex-direction: column; gap: 18px; align-items: center;">
+        <span class="eyebrow" style="color: var(--blue-200);">Cómo funciona</span>
+        <h2 style="font-size: 38px; line-height: 1.15; color: var(--white);">Agendar tu consulta es así de simple</h2>
+      </div>
+
+      <div class="steps-row">
+        <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 2px solid oklch(0.995 0 0 / 0.25);">
+          <span class="step-num" style="color: oklch(0.995 0 0 / 0.4);">01</span>
+          <h3 style="font-size: 19px; color: var(--white); font-weight: 600;">Agenda en línea o por WhatsApp</h3>
+          <p style="font-size: 14.5px; line-height: 1.6; color: oklch(0.995 0 0 / 0.72);">Cuéntanos el motivo de consulta y tu ubicación en Bogotá.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 2px solid oklch(0.995 0 0 / 0.25);">
+          <span class="step-num" style="color: oklch(0.995 0 0 / 0.4);">02</span>
+          <h3 style="font-size: 19px; color: var(--white); font-weight: 600;">Confirmamos el horario</h3>
+          <p style="font-size: 14.5px; line-height: 1.6; color: oklch(0.995 0 0 / 0.72);">Coordinamos el día y la hora que mejor se ajusten a ti.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 2px solid oklch(0.995 0 0 / 0.25);">
+          <span class="step-num" style="color: oklch(0.995 0 0 / 0.4);">03</span>
+          <h3 style="font-size: 19px; color: var(--white); font-weight: 600;">Visita a domicilio</h3>
+          <p style="font-size: 14.5px; line-height: 1.6; color: oklch(0.995 0 0 / 0.72);">El Dr. Dueñas llega a tu hogar con todo lo necesario para tu consulta.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 20px; border-top: 2px solid oklch(0.995 0 0 / 0.25);">
+          <span class="step-num" style="color: oklch(0.995 0 0 / 0.4);">04</span>
+          <h3 style="font-size: 19px; color: var(--white); font-weight: 600;">Seguimiento</h3>
+          <p style="font-size: 14.5px; line-height: 1.6; color: oklch(0.995 0 0 / 0.72);">Acompañamiento posterior a la consulta para resolver tus dudas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE -->
+  <section id="cobertura" style="max-width: 1200px; margin: 0 auto; padding: 100px 32px;">
+    <div class="coverage-split">
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+        <span class="eyebrow">Cobertura y horarios</span>
+        <h2 style="font-size: 38px; line-height: 1.15;">Atendemos en Bogotá y alrededores</h2>
+        <p style="font-size: 16.5px; line-height: 1.7; color: var(--ink-soft);">Actualmente ofrecemos consultas médicas a domicilio en Bogotá D.C. Escríbenos con tu ubicación y con gusto confirmamos disponibilidad para tu zona.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px; padding: 24px; border-radius: 18px; background: var(--bg-alt); border: 1px solid var(--line-soft);">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--blue-800);">Horario de atención</span>
+          <div style="display: flex; justify-content: space-between; font-size: 15px; padding-top: 6px; border-top: 1px solid var(--line);">
+            <span style="color: var(--ink-soft);">Lunes a viernes</span>
+            <span style="font-weight: 700; color: var(--ink);">7:00 a.m. – 2:00 p.m.</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 15px;">
+            <span style="color: var(--ink-soft);">Sábados y domingos</span>
+            <span style="font-weight: 700; color: var(--ink);">Consultar disponibilidad</span>
+          </div>
+        </div>
+        <p style="font-size: 12.5px; color: var(--ink-faint); font-style: italic;">Para fines de semana, escríbenos por WhatsApp y confirmamos si hay disponibilidad.</p>
+      </div>
+
+      <div style="position: relative; height: 420px; border-radius: 28px; background: var(--blue-100); border: 1px solid var(--line); overflow: hidden;">
+        <svg width="100%" height="100%" viewBox="0 0 400 420" style="position: absolute; inset: 0;">
+          <g opacity="0.55">
+            <circle cx="60" cy="60" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="110" cy="45" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="160" cy="70" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="210" cy="50" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="260" cy="85" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="310" cy="55" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="80" cy="120" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="140" cy="130" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="200" cy="115" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="250" cy="140" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="300" cy="120" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="340" cy="150" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="60" cy="180" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="120" cy="200" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="175" cy="185" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="230" cy="210" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="290" cy="190" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="330" cy="220" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="90" cy="260" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="150" cy="270" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="210" cy="255" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="270" cy="280" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="320" cy="260" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="70" cy="330" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="130" cy="345" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="190" cy="325" r="2.4" fill="oklch(0.55 0.10 258)"/>
+            <circle cx="250" cy="350" r="2.4" fill="oklch(0.55 0.10 258)"/><circle cx="300" cy="330" r="2.4" fill="oklch(0.55 0.10 258)"/>
+          </g>
+        </svg>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%); display: flex; flex-direction: column; align-items: center; gap: 12px;">
+          <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--blue-900); display: flex; align-items: center; justify-content: center; box-shadow: 0 16px 32px -12px oklch(0.28 0.085 258 / 0.5);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--white)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          </div>
+          <div class="card" style="padding: 10px 18px;">
+            <span style="font-size: 14px; font-weight: 700; color: var(--ink);">Bogotá D.C.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS / TRUST -->
+  <section id="testimonios" style="background: var(--bg-alt); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 100px 32px;">
+      <div style="max-width: 620px; margin: 0 auto 56px; text-align: center; display: flex; flex-direction: column; gap: 18px; align-items: center;">
+        <span class="eyebrow">Confianza</span>
+        <h2 style="font-size: 38px; line-height: 1.15;">La confianza de quienes ya han sido atendidos</h2>
+      </div>
+
+      <div class="testi-grid">
+        <div class="card" style="padding: 30px 26px; display: flex; flex-direction: column; gap: 18px;">
+          <svg width="26" height="20" viewBox="0 0 26 20" fill="var(--blue-200)"><path d="M0 20V11.5C0 4.5 4.2 0.5 10.4 0v4.3C7 4.9 5.3 7 5.3 10h5.1V20H0zm15.6 0V11.5C15.6 4.5 19.8 0.5 26 0v4.3c-3.4 0.6-5.1 2.7-5.1 5.7h5.1V20H15.6z"/></svg>
+          <p style="font-size: 15px; line-height: 1.65; color: var(--ink);">"La atención fue excelente: el doctor llegó puntual y se tomó el tiempo de explicarme todo con calma."</p>
+          <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 4px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: var(--ink);">[Nombre del paciente]</span>
+            <span style="font-size: 12px; color: var(--ink-faint);">Testimonio de ejemplo · Bogotá</span>
+          </div>
+        </div>
+        <div class="card" style="padding: 30px 26px; display: flex; flex-direction: column; gap: 18px;">
+          <svg width="26" height="20" viewBox="0 0 26 20" fill="var(--blue-200)"><path d="M0 20V11.5C0 4.5 4.2 0.5 10.4 0v4.3C7 4.9 5.3 7 5.3 10h5.1V20H0zm15.6 0V11.5C15.6 4.5 19.8 0.5 26 0v4.3c-3.4 0.6-5.1 2.7-5.1 5.7h5.1V20H15.6z"/></svg>
+          <p style="font-size: 15px; line-height: 1.65; color: var(--ink);">"Muy tranquilizador poder recibir una consulta completa sin salir de casa, sobre todo con mis padres mayores."</p>
+          <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 4px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: var(--ink);">[Nombre del paciente]</span>
+            <span style="font-size: 12px; color: var(--ink-faint);">Testimonio de ejemplo · Bogotá</span>
+          </div>
+        </div>
+        <div class="card" style="padding: 30px 26px; display: flex; flex-direction: column; gap: 18px;">
+          <svg width="26" height="20" viewBox="0 0 26 20" fill="var(--blue-200)"><path d="M0 20V11.5C0 4.5 4.2 0.5 10.4 0v4.3C7 4.9 5.3 7 5.3 10h5.1V20H0zm15.6 0V11.5C15.6 4.5 19.8 0.5 26 0v4.3c-3.4 0.6-5.1 2.7-5.1 5.7h5.1V20H15.6z"/></svg>
+          <p style="font-size: 15px; line-height: 1.65; color: var(--ink);">"Agendar por WhatsApp fue muy fácil y la comunicación clara desde el primer mensaje."</p>
+          <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 4px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: var(--ink);">[Nombre del paciente]</span>
+            <span style="font-size: 12px; color: var(--ink-faint);">Testimonio de ejemplo · Bogotá</span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--ink-faint); font-style: italic; text-align: center; margin-top: 8px;">Los testimonios anteriores son de ejemplo — reemplázalos por reseñas reales de tus pacientes.</p>
+
+      <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="icon-badge" style="width: 42px; height: 42px; border-radius: 12px;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 14px; font-weight: 700; color: var(--ink);">Registro médico vigente</span>
+            <span style="font-size: 12.5px; color: var(--ink-faint);">[N.º de registro]</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="icon-badge" style="width: 42px; height: 42px; border-radius: 12px;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c2-4 6-6 8-6s6 2 8 6c-2 4-6 6-8 6s-6-2-8-6z"/><circle cx="12" cy="12" r="2.4"/></svg></div>
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 14px; font-weight: 700; color: var(--ink);">Bioseguridad en cada visita</span>
+            <span style="font-size: 12.5px; color: var(--ink-faint);">Protocolos de higiene</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="icon-badge" style="width: 42px; height: 42px; border-radius: 12px;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 14px; font-weight: 700; color: var(--ink);">1 año de experiencia</span>
+            <span style="font-size: 12.5px; color: var(--ink-faint);">Medicina general</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="contacto" style="background: linear-gradient(135deg, var(--blue-900), var(--blue-700)); position: relative; overflow: hidden;">
+    <div style="position: absolute; width: 420px; height: 420px; border-radius: 50%; background: oklch(0.995 0 0 / 0.06); top: -180px; right: -120px;"></div>
+    <div style="max-width: 900px; margin: 0 auto; padding: 100px 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; position: relative;">
+      <span class="eyebrow" style="color: var(--blue-200);">Agenda tu consulta</span>
+      <h2 style="font-size: 42px; line-height: 1.15; color: var(--white); max-width: 640px;">Atención médica a domicilio, disponible cuando la necesites</h2>
+      <p style="font-size: 17px; line-height: 1.65; color: oklch(0.995 0 0 / 0.78); max-width: 540px;">Agenda en línea o escríbenos por WhatsApp al 322 745 8470 y con gusto coordinamos tu consulta médica general a domicilio en Bogotá.</p>
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 8px;">
+        <a class="btn-white" href="#agendar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+          Agendar en línea
+        </a>
+        <a class="btn-outline-white" href="https://wa.me/573227458470?text=Hola%2C%20quisiera%20agendar%20una%20consulta%20m%C3%A9dica%20a%20domicilio" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          WhatsApp: 322 745 8470
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: var(--surface); border-top: 1px solid var(--line-soft);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 32px;">
+      <div class="footer-grid">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <span style="font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 22px; color: var(--blue-900);">Consultas Médicas</span>
+          <p style="font-size: 14px; line-height: 1.6; color: var(--ink-faint); max-width: 280px;">Medicina general a domicilio en Bogotá, con el Dr. Andrés Felipe Dueñas Niño.</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink);">Contacto</span>
+          <a href="https://wa.me/573227458470" target="_blank" rel="noopener" style="font-size: 14.5px; color: var(--ink-faint);">WhatsApp: 322 745 8470</a>
+          <a href="tel:+573227458470" style="font-size: 14.5px; color: var(--ink-faint);">Teléfono: 322 745 8470</a>
+          <span style="font-size: 14.5px; color: var(--ink-faint);">Bogotá D.C., Colombia</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink);">Enlaces</span>
+          <a href="#servicios" style="font-size: 14.5px; color: var(--ink-faint);">Servicios</a>
+          <a href="#agendar" style="font-size: 14.5px; color: var(--ink-faint);">Agendar</a>
+          <a href="#cobertura" style="font-size: 14.5px; color: var(--ink-faint);">Cobertura</a>
+          <a href="#testimonios" style="font-size: 14.5px; color: var(--ink-faint);">Confianza</a>
+        </div>
+      </div>
+      <div style="margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line-soft); display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-size: 13px; color: var(--ink-faint);">© 2026 Consultas Médicas — Dr. Andrés Felipe Dueñas Niño. Todos los derechos reservados.</span>
+        <span style="font-size: 12px; color: var(--ink-faint); font-style: italic; max-width: 720px; line-height: 1.5;">La información de este sitio no reemplaza una valoración médica presencial de urgencia. Ante una emergencia, comunícate con los servicios de urgencias correspondientes.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/573227458470?text=Hola%2C%20quisiera%20agendar%20una%20consulta%20m%C3%A9dica%20a%20domicilio" target="_blank" rel="noopener"
+     style="position: fixed; bottom: 28px; right: 28px; z-index: 50; width: 58px; height: 58px; border-radius: 50%; background: var(--blue-900); display: flex; align-items: center; justify-content: center; box-shadow: 0 16px 32px -10px oklch(0.28 0.085 258 / 0.55); transition: transform 0.2s ease, background 0.2s ease;"
+     onmouseover="this.style.transform='scale(1.08)'; this.style.background='var(--blue-700)';" onmouseout="this.style.transform='scale(1)'; this.style.background='var(--blue-900)';">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--white)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  </a>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+  // ---- CONFIGURACIÓN DE SUPABASE ----
+  // Reemplaza estos dos valores con los de tu proyecto (Project Settings -> API)
+  const SUPABASE_URL = "TU_SUPABASE_URL_AQUI";
+  const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY_AQUI";
+
+  const form = document.getElementById('form-agendar');
+  const btn = document.getElementById('btn-enviar');
+  const mensaje = document.getElementById('form-mensaje');
+
+  function mostrarMensaje(texto, tipo) {
+    mensaje.style.display = 'block';
+    mensaje.textContent = texto;
+    if (tipo === 'exito') {
+      mensaje.style.background = 'oklch(0.94 0.05 150)';
+      mensaje.style.color = 'oklch(0.35 0.1 150)';
+    } else {
+      mensaje.style.background = 'oklch(0.95 0.04 25)';
+      mensaje.style.color = 'var(--error)';
+    }
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    if (SUPABASE_URL.includes('TU_SUPABASE_URL_AQUI')) {
+      mostrarMensaje('El formulario aún no está conectado a la base de datos. Por favor escríbenos directamente por WhatsApp mientras tanto.', 'error');
+      return;
+    }
+
+    const datos = {
+      nombre: document.getElementById('f-nombre').value.trim(),
+      telefono: document.getElementById('f-telefono').value.trim(),
+      direccion: document.getElementById('f-direccion').value.trim(),
+      motivo: document.getElementById('f-motivo').value.trim(),
+      fecha_preferida: document.getElementById('f-fecha').value,
+      franja_horaria: document.getElementById('f-franja').value
+    };
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
+    try {
+      const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { error } = await supabaseClient.from('solicitudes').insert([datos]);
+
+      if (error) throw error;
+
+      form.reset();
+      const telLimpio = datos.telefono.replace(/\D/g, '');
+      const resumen = encodeURIComponent(
+        'Hola, acabo de solicitar una consulta a domicilio:\n' +
+        'Nombre: ' + datos.nombre + '\n' +
+        'Fecha preferida: ' + datos.fecha_preferida + '\n' +
+        'Franja: ' + datos.franja_horaria + '\n' +
+        'Motivo: ' + datos.motivo
+      );
+      mostrarMensaje('¡Listo! Recibimos tu solicitud. Para confirmar más rápido, también puedes escribirnos por WhatsApp.', 'exito');
+      window.open('https://wa.me/573227458470?text=' + resumen, '_blank');
+    } catch (err) {
+      console.error(err);
+      mostrarMensaje('No pudimos enviar tu solicitud. Por favor intenta de nuevo o escríbenos directo por WhatsApp al 322 745 8470.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar solicitud';
+    }
+  });
+</script>
+</body>
+</html>
